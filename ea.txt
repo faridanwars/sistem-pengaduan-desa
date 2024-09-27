@@ -1,4 +1,1 @@
-revisi
-1. (Admin) sekup satu desa -> filter dengan NIK
-2. (User) menu pesan dibuat satu pengaduan
-3. (Admin) menu konfirmasi terdapat : diterima, ditolak, selesai.
+nama saya farid anwar shidiq
