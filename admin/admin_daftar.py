@@ -19,6 +19,7 @@ from reportlab.pdfgen import canvas
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from urllib.parse import quote
+from kivy.uix.image import AsyncImage
 import os
 
 class AdminDaftarScreen(Screen):
@@ -44,7 +45,7 @@ class AdminDaftarScreen(Screen):
 
             image_source = pengaduan['gambar']
             print(f"Memuat gambar dari URL: {image_source}")  # Debug URL gambar
-            image_widget = KivyImage(source=image_source, size_hint=(1, 0.7), allow_stretch=True)
+            image_widget = AsyncImage(source=image_source, size_hint=(1, 0.7), allow_stretch=True)
 
             # Menangani kesalahan saat memuat gambar
             def on_image_error(instance):
