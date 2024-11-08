@@ -1,0 +1,169 @@
+#:kivy 2.1.0
+<LoginScreen>:
+    MDLabel:
+        text: "Welcome"
+        font_name: 'assets/font/dreams.ttf'
+        font_size: "72dp"
+        halign: "center"
+        color: "#FFFFFF"
+        pos_hint: {"center_y": .85}
+
+    MDTextField:
+        id: login_username_field
+        hint_text: "Username"
+        icon_right: "account" 
+        font_size: "20dp"
+        size_hint_x: .85
+        pos_hint: {"center_x": .5, "center_y": .65}
+        on_text: self.text = self.text.replace(" ", "")
+        write_tab: False
+
+    MDTextField:
+        id: login_password_field
+        hint_text: "Password"
+        password: True
+        icon_right: "eye-off"
+        font_size: "20dp"
+        size_hint_x: .85
+        pos_hint: {"center_x": .5, "center_y": .5}
+        on_text: self.text = self.text.replace(" ", "")
+        write_tab: False
+
+    BoxLayout:
+        size_hint_x: 0.85
+        height: "30dp"
+        pos_hint: {"center_x": .5, "center_y": .4}
+        spacing: "5dp"
+
+        MDCheckbox:
+            id: cb
+            size_hint: None, None
+            width: "30dp"
+            height: "30dp"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_press: 
+                login_password_field.password = not login_password_field.password
+                login_password_field.icon_right = "eye" if login_password_field.icon_right == "eye-off" else "eye-off"
+
+        MDLabel:
+            text: "[ref=Show Password]Show Password[/ref]"
+            markup: True
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_ref_press:
+                cb.active = not cb.active
+                login_password_field.password = not login_password_field.password
+
+    MDLabel:
+        text: "Belum punya akun? [ref=create_account][color=#ADD8E6]Buat akun[/color][/ref]"
+        halign: "center"
+        pos_hint: {"center_x": .47, "center_y": .35}
+        markup: True
+        color: "#FFFFFF"
+        on_ref_press:
+            app.root.current = 'create_account'
+
+    BoxLayout:
+        size_hint_x: 0.5 
+        height: "30dp"
+        pos_hint: {"center_x": .5, "center_y": .7} 
+
+        MDRaisedButton:
+            text: "Masuk"
+            font_size: "22dp"
+            size_hint_x: "1"
+            on_release: root.check_credentials()
+
+
+<CreateAccountScreen>:
+    MDLabel:
+        text: "Daftar"
+        font_name: 'assets/font/dreams.ttf'
+        font_size: "72dp"
+        halign: "center"
+        color: "#FFFFFF"
+        pos_hint: {"center_y": .85}
+
+    MDTextField:
+        id: username_field
+        hint_text: "Username"
+        icon_right: "account"
+        font_size: "20dp"
+        size_hint_x: .85
+        pos_hint: {"center_x": .5, "center_y": .65}
+        on_text: self.text = self.text.replace(" ", "")
+        write_tab: False
+
+    MDTextField:
+        id: nik_field
+        hint_text: "NIK"
+        icon_right: "card"
+        font_size: "20dp"
+        size_hint_x: .85
+        pos_hint: {"center_x": .5, "center_y": .55}
+        on_text: self.text = self.text.replace(" ", "")
+        write_tab: False
+
+    MDTextField:
+        id: address_field
+        hint_text: "Alamat"
+        icon_right: "home"
+        font_size: "20dp"
+        size_hint_x: .85
+        pos_hint: {"center_x": .5, "center_y": .45}
+        on_text: self.text = self.text.replace(" ", "")
+        write_tab: False
+
+    MDTextField:
+        id: create_account_password_field
+        hint_text: "Password"
+        password: True
+        icon_right: "eye-off"
+        font_size: "20dp"
+        size_hint_x: .85
+        pos_hint: {"center_x": .5, "center_y": .35}
+        on_text: self.text = self.text.replace(" ", "")
+        write_tab: False
+
+    BoxLayout:
+        size_hint_x: 0.85
+        height: "30dp"
+        pos_hint: {"center_x": .5, "center_y": .4}
+        spacing: "5dp"
+
+        MDCheckbox:
+            id: cb_create
+            size_hint: None, None
+            width: "30dp"
+            height: "30dp"
+            pos_hint: {"center_x": .5, "center_y": .38}
+            on_press: 
+                create_account_password_field.password = not create_account_password_field.password
+                create_account_password_field.icon_right = "eye" if create_account_password_field.icon_right == "eye-off" else "eye-off"
+
+        MDLabel:
+            text: "[ref=Show Password]Show Password[/ref]"
+            markup: True
+            pos_hint: {"center_x": .5, "center_y": .38}
+            on_ref_press:
+                cb_create.active = not cb_create.active
+                create_account_password_field.password = not create_account_password_field.password
+
+    MDLabel:
+        text: "Sudah punya akun? [ref=login][color=#ADD8E6]Masuk[/color][/ref]"
+        halign: "center"
+        pos_hint: {"center_x": .44, "center_y": .23}
+        markup: True
+        color: "#FFFFFF"
+        on_ref_press:
+            app.root.current = 'login'
+
+    BoxLayout:
+        size_hint_x: 0.5 
+        height: "30dp"
+        pos_hint: {"center_x": .5, "center_y": .61} 
+
+        MDRaisedButton:
+            text: "Daftar"
+            font_size: "22dp"
+            size_hint_x: "1"
+            on_release: root.register_account()

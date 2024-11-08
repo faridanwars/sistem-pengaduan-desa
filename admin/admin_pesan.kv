@@ -1,0 +1,109 @@
+#:kivy 2.3.0
+
+<AdminPesanScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Kotak header
+        BoxLayout:
+            size_hint: (1, .6)
+            padding: [80, 0, 0, 35]  # Only padding at the bottom
+            orientation: 'horizontal'
+            canvas.before:
+                Color:
+                    rgba: 0.0, 0.5, 0.5, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [0, 0, 30, 30]
+
+            # Memusatkan teks di dalam BoxLayout
+            BoxLayout:
+                size_hint: None, None
+                width: self.minimum_width
+                height: self.minimum_height
+                pos_hint: {"center_x": 0.5}  # Memposisikan di tengah secara horizontal
+                orientation: 'horizontal'
+                spacing: 40  # Menambahkan spasi antara label
+
+                # Teks "All"
+                Label:
+                    text: "All"
+                    font_size: '18sp'
+                    font_name: 'assets/font/Montserrat-Regular.otf'
+                    bold: True
+                    halign: 'center'
+                    valign: 'middle'
+                    size_hint: None, None
+                    size: self.texture_size
+
+                # Teks "Unread"
+                Label:
+                    text: "Unread"
+                    font_size: '18sp'
+                    font_name: 'assets/font/Montserrat-Regular.otf'
+                    bold: True
+                    halign: 'center'
+                    valign: 'middle'
+                    size_hint: None, None
+                    size: self.texture_size
+
+                # Teks "Read"
+                Label:
+                    text: "Read"
+                    font_size: '18sp'
+                    font_name: 'assets/font/Montserrat-Regular.otf'
+                    bold: True
+                    halign: 'center'
+                    valign: 'middle'
+                    size_hint: None, None
+                    size: self.texture_size
+
+        # Jarak antara header dan daftar pesan
+        Widget:
+            size_hint_y: None
+            height: dp(20)  # Jarak 20 antara header dan daftar pesan
+
+        # ScrollView untuk daftar pesan di bawah header
+        ScrollView:
+            size_hint: 1, None
+            size: 350, 380
+            BoxLayout:
+                id: notifikasi_list  # ID untuk daftar notifikasi
+                orientation: 'vertical'
+                padding: [10, 10]
+                spacing: 10
+                size_hint_y: None
+                height: self.minimum_height
+
+        # Bottom Navigation Bar
+        MDBottomNavigation:
+            panel_color: "#EEEEEE"
+            text_color_active: "#888888"
+            text_color_normal: "#888888"
+            icon_color_active: "#888888"
+            icon_color_normal: "#888888"
+
+            MDBottomNavigationItem:
+                name: 'home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: app.root.current = 'admin_home'
+
+            MDBottomNavigationItem:
+                name: 'pesan'
+                text: 'Pesan'
+                icon: 'message'
+                on_tab_press: app.root.current = 'admin_pesan'
+
+            MDBottomNavigationItem:
+                name: 'pengaduan'
+                text: 'Pengaduan'
+                icon: 'alert-circle-outline'
+                on_tab_press: app.root.current = 'admin_pengaduan'
+
+            MDBottomNavigationItem:
+                name: 'profil'
+                text: 'Profil'
+                icon: 'account'
+                on_tab_press: app.root.current = 'admin_profil'

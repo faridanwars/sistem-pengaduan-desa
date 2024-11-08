@@ -1,0 +1,67 @@
+#:kivy 2.3.0
+<AdminDaftarScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Spacer untuk memberi jarak di atas konten
+        MDBoxLayout:
+            size_hint_y: None
+            height: dp(20)  # Menentukan tinggi spacer
+
+        # Pencarian
+        MDBoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            padding: dp(10)
+            spacing: dp(10)
+
+            MDTextField:
+                id: search_field
+                hint_text: "Cari berdasarkan judul..."
+                size_hint_x: 0.8
+
+            MDIconButton:
+                icon: 'magnify'
+                on_release: root.search_pengaduan()  # Panggil metode pencarian
+
+        # Konten utama
+        ScrollView:
+            MDGridLayout:
+                id: pengaduan_grid
+                cols: 2
+                spacing: dp(10)
+                padding: dp(10)
+                size_hint_y: None
+                height: self.minimum_height
+
+        # Bottom Navigation Bar
+        MDBottomNavigation:
+            panel_color: "#EEEEEE"
+            text_color_active: "#888888"
+            text_color_normal: "#888888"
+            icon_color_active: "#888888"
+            icon_color_normal: "#888888"
+
+            MDBottomNavigationItem:
+                name: 'home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: app.root.current = 'admin_home'
+
+            MDBottomNavigationItem:
+                name: 'pesan'
+                text: 'Pesan'
+                icon: 'message'
+                on_tab_press: app.root.current = 'admin_pesan'
+
+            MDBottomNavigationItem:
+                name: 'pengaduan'
+                text: 'Pengaduan'
+                icon: 'alert-circle-outline'
+                on_tab_press: app.root.current = 'admin_pengaduan'
+
+            MDBottomNavigationItem:
+                name: 'profil'
+                text: 'Profil'
+                icon: 'account'
+                on_tab_press: app.root.current = 'admin_profil'

@@ -1,0 +1,57 @@
+#:kivy 2.3.0
+
+<AdminDetailPesanScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Header
+        MDBoxLayout:
+            padding: dp(10)
+            size_hint_y: None
+            height: dp(60)
+            md_bg_color: app.theme_cls.primary_color
+
+            MDIconButton:
+                icon: 'chevron-left'
+                on_release: root.back_to_messages()
+
+            MDBoxLayout:
+                orientation: 'vertical'
+                MDLabel:
+                    text: "Admin"
+                    font_style: "Subtitle1"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                MDLabel:
+                    text: "Sistem Pengaduan Desa"
+                    font_style: "Caption"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+        # Chat messages
+        ScrollView:
+            MDBoxLayout:
+                id: message_container
+                orientation: 'vertical'
+                padding: dp(10)
+                spacing: dp(10)
+                size_hint_y: None
+                height: self.minimum_height
+
+        # Input Field
+        MDBoxLayout:
+            padding: dp(10)
+            size_hint_y: None
+            height: dp(50)
+            spacing: dp(10)
+
+            MDTextFieldRect:
+                id: message_input
+                hint_text: "Type your message..."
+                size_hint_x: 0.9
+                multiline: False
+
+            MDIconButton:
+                icon: 'send'
+                on_release: root.send_message()  # Tambahkan logika untuk mengirim pesan jika diperlukan

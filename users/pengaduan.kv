@@ -1,0 +1,113 @@
+#:kivy 2.3.0
+
+<PengaduanScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Kotak header
+        BoxLayout:
+            size_hint: (1, 0.32)
+            padding: [20, 0, 0, 20]
+            orientation: 'vertical'
+            canvas.before:
+                Color:
+                    rgba: 0.0, 0.5, 0.5, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [0, 0, 30, 30]
+
+            # Teks di header
+            Label:
+                id: greeting_label
+                text: "Halo User"
+                font_size: '28sp'
+                font_name: 'assets/font/Montserrat-Bold.otf'
+                bold: True 
+                halign: 'left'
+                size_hint_x: None
+                size_hint_y: None
+                height: self.texture_size[1]
+                width: self.texture_size[0]
+
+            Label:
+                text: "Sistem Pengaduan Desa"
+                font_size: '12sp'
+                font_name: 'assets/font/Montserrat-Regular.otf'
+                halign: 'left'
+                size_hint_x: None
+                size_hint_y: None
+                height: self.texture_size[1]
+                width: self.texture_size[0]
+                valign: 'top'
+
+        Label:
+            size_hint_y: None
+            height: dp(20)  # Atur tinggi spacer sesuai kebutuhan
+
+        # BoxLayout Button
+        BoxLayout:
+            orientation: 'vertical' 
+            size_hint_y: None
+            height: dp(250)  
+            padding: dp(10)
+            spacing: dp(50) 
+
+            MDRectangleFlatButton:
+                text: "Masukan Pengaduan"
+                size_hint_y: None
+                height: dp(40) 
+                size_hint_x: 1
+                text_color: (1, 1, 1, 1)
+                on_release:
+                    app.root.current = 'masukan'
+
+            MDRectangleFlatButton:
+                text: "Status Pengaduan"
+                size_hint_y: None
+                height: dp(40)
+                size_hint_x: 1
+                text_color: (1, 1, 1, 1)
+                on_release:
+                    app.root.current = 'status'
+
+            MDRectangleFlatButton:
+                text: "Riwayat Pengaduan"
+                size_hint_y: None
+                height: dp(40)
+                size_hint_x: 1
+                text_color: (1, 1, 1, 1)
+                on_release:
+                    app.root.current = 'riwayat'
+
+        # Bottom Navigation Bar
+        MDBottomNavigation:
+            panel_color: "#EEEEEE"
+            text_color_active: "#888888"  # Warna teks aktif sama dengan normal
+            text_color_normal: "#888888"
+            icon_color_active: "#888888"  # Warna ikon aktif sama dengan normal
+            icon_color_normal: "#888888"
+
+            MDBottomNavigationItem:
+                name: 'home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: app.root.current = 'users_home'
+
+            MDBottomNavigationItem:
+                name: 'pesan'
+                text: 'Pesan'
+                icon: 'message'
+                on_tab_press: app.root.current = 'pesan'
+
+            MDBottomNavigationItem:
+                name: 'pengaduan'
+                text: 'Pengaduan'
+                icon: 'alert-circle-outline'
+                on_tab_press: app.root.current = 'pengaduan'
+
+            MDBottomNavigationItem:
+                name: 'profil'
+                text: 'Profil'
+                icon: 'account'
+                on_tab_press: app.root.current = 'profil'

@@ -1,0 +1,87 @@
+#:kivy 2.3.0
+
+<StatusScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Header
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+
+            MDIconButton:
+                icon: 'arrow-left'
+                on_release:
+                    app.root.current = 'pengaduan'
+                theme_text_color: 'Custom'
+                text_color: (1, 1, 1, 1)
+
+            Label:
+                text: "Status"
+                font_size: '30sp'
+                font_name: 'assets/font/Montserrat-Bold.otf'
+                bold: True
+                halign: 'center'
+                valign: 'middle'
+                size_hint_x: 1
+
+        # Konten Status Pengaduan
+        ScrollView:
+            size_hint: (1, None)
+            size: 350, 470
+            
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                padding: dp(10)
+                spacing: dp(10)
+
+                MDGridLayout:
+                    id: status_layout  # ID untuk layout
+                    cols: 1
+                    font_name: 'assets/font/Montserrat-Regular.otf'
+                    adaptive_height: True
+                    spacing: dp(5)
+                    size_hint_y: None
+
+                    canvas.before:
+                        Color:
+                            rgba: 0.2, 0.2, 0.2, 1  # Warna abu-abu gelap
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+        # Bottom Navigation Bar
+        MDBottomNavigation:
+            panel_color: "#EEEEEE"
+            text_color_active: "#888888"
+            text_color_normal: "#888888"
+            icon_color_active: "#888888"
+            icon_color_normal: "#888888"
+
+            MDBottomNavigationItem:
+                name: 'home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: app.root.current = 'users_home'
+
+            MDBottomNavigationItem:
+                name: 'pesan'
+                text: 'Pesan'
+                icon: 'message'
+                on_tab_press: app.root.current = 'pesan'
+
+            MDBottomNavigationItem:
+                name: 'pengaduan'
+                text: 'Pengaduan'
+                icon: 'alert-circle-outline'
+                on_tab_press: app.root.current = 'pengaduan'
+
+            MDBottomNavigationItem:
+                name: 'profil'
+                text: 'Profil'
+                icon: 'account'
+                on_tab_press: app.root.current = 'profil'

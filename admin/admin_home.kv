@@ -1,0 +1,264 @@
+#:kivy 2.3.0
+<AdminHomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Kotak header
+        BoxLayout:
+            size_hint: (1, None)
+            height: '80dp'  # Tinggi header
+            padding: [20, 0, 20, 20]  # Padding untuk header
+            orientation: 'horizontal'
+            canvas.before:
+                Color:
+                    rgba: 0.0, 0.5, 0.5, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [0, 0, 30, 30]
+
+            # Teks di header
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.8  # Mengatur lebar teks header
+                padding: [0, 0, 0, 0]
+
+                Label:
+                    text: "Halo Admin"
+                    font_size: '28sp'
+                    font_name: 'assets/font/Montserrat-Bold.otf'
+                    bold: True 
+                    halign: 'left'
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                Label:
+                    text: "Sistem Pengaduan Desa"
+                    font_size: '12sp'
+                    font_name: 'assets/font/Montserrat-Regular.otf'
+                    halign: 'left'
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    valign: 'top'
+
+            # Tombol berbentuk lingkaran untuk jumlah pengguna
+            MDRoundFlatButton:
+                size_hint: (None, None)
+                size: '50dp', '50dp'  # Ukuran tombol
+                pos_hint: {'right': 1}  # Menempatkan tombol di pojok kanan
+                on_release: app.root.current = 'daftar_user'  # Event ketika tombol ditekan
+                md_bg_color: 0.0, 0.5, 0.5, 1  # Warna latar belakang tombol
+
+                # Tampilkan jumlah pengguna sebagai teks di dalam tombol
+                Label:
+                    id: user_count_label
+                    text: "0"  # Default text
+                    font_size: '12sp'
+                    font_name: 'assets/font/Montserrat-Bold.otf'
+                    color: (1, 1, 1, 1)  # Warna teks putih
+                    halign: 'center'
+                    valign: 'middle'
+                    size_hint: (1, 1)  # Mengisi tombol
+
+        # ScrollView untuk perangkat desa dan visi/misi
+        ScrollView:
+            size_hint: (None, None)
+            size: 350, 470  # Ukuran ScrollView
+            bar_width: 10  # Lebar scrollbar
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: [20, 10]
+                spacing: 10  # Mengurangi jarak antara elemen
+
+                # Header untuk perangkat desa
+                Label:
+                    text: "Struktur Perangkat Desa"
+                    font_size: '16sp'
+                    font_name: 'assets/font/Montserrat-Bold.otf'
+                    halign: 'center'
+                    bold: True
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    padding_y: 10
+
+                # Kepala Desa di atas
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 10  # Jarak antara kepala desa dan perangkat desa
+
+                    # Kepala Desa
+                    MDIconButton:
+                        icon: 'account-tie'
+                        user_font_size: '64sp'
+                        size_hint: (None, None)
+                        size: '64dp', '64dp'
+                        pos_hint: {'center_x': 0.5}
+                        md_bg_color: 0.0, 0.5, 0.5, 1
+
+                    Label:
+                        text: "Kepala Desa"
+                        font_size: '12sp'
+                        font_name: 'assets/font/Montserrat-Regular.otf'
+                        halign: 'center'
+                        bold: True
+
+                # BoxLayout untuk GridLayout dengan padding tambahan
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: [0, 10]  # Mengurangi jarak atas
+                    spacing: 10  # Jarak antar perangkat desa
+
+                    # GridLayout untuk perangkat desa lainnya
+                    GridLayout:
+                        cols: 3
+                        padding: [25, 10]  # Mengurangi padding
+                        spacing: 10
+                        size_hint_y: None
+                        height: '150dp'
+                        size_hint_x: 1
+
+                        # Sekdes
+                        BoxLayout:
+                            orientation: 'vertical'
+                            spacing: 5
+                            size_hint: (None, None)
+                            size: '80dp', '100dp'
+
+                            MDIconButton:
+                                icon: 'account-tie'
+                                user_font_size: '64sp'
+                                size_hint: (None, None)
+                                size: '64dp', '64dp'
+                                md_bg_color: 0.0, 0.5, 0.5, 1
+                                pos_hint: {'center_x': 0.5}
+
+                            Label:
+                                text: "Sekretaris Desa"
+                                font_size: '12sp'
+                                font_name: 'assets/font/Montserrat-Regular.otf'
+                                halign: 'center'
+                                bold: True
+
+                        # Bendahara
+                        BoxLayout:
+                            orientation: 'vertical'
+                            spacing: 5
+                            size_hint: (None, None)
+                            size: '80dp', '100dp'
+
+                            MDIconButton:
+                                icon: 'account-cash'
+                                user_font_size: '64sp'
+                                size_hint: (None, None)
+                                size: '64dp', '64dp'
+                                md_bg_color: 0.0, 0.5, 0.5, 1
+                                pos_hint: {'center_x': 0.5}
+
+                            Label:
+                                text: "Bendahara"
+                                font_size: '12sp'
+                                font_name: 'assets/font/Montserrat-Regular.otf'
+                                halign: 'center'
+                                bold: True
+
+                        # Humas
+                        BoxLayout:
+                            orientation: 'vertical'
+                            spacing: 5
+                            size_hint: (None, None)
+                            size: '80dp', '100dp'
+
+                            MDIconButton:
+                                icon: 'account-group'
+                                user_font_size: '64sp'
+                                size_hint: (None, None)
+                                size: '64dp', '64dp'
+                                md_bg_color: 0.0, 0.5, 0.5, 1
+                                pos_hint: {'center_x': 0.5}
+
+                            Label:
+                                text: "Humas"
+                                font_size: '12sp'
+                                font_name: 'assets/font/Montserrat-Regular.otf'
+                                halign: 'center'
+                                bold: True
+
+                # Garis pembatas lebih dekat dengan struktur
+                BoxLayout:
+                    size_hint_y: None
+                    height: 2
+                    padding_y: 5  # Mengurangi jarak atas dan bawah pembatas
+                    canvas.before:
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+                # Visi dan Misi
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: [10, 20]
+
+                    # Pindahkan Label "Visi dan Misi" ke sini
+                    Label:
+                        text: "Visi dan Misi"
+                        font_size: '16sp'
+                        font_name: 'assets/font/Montserrat-Bold.otf'
+                        halign: 'center'
+                        bold: True
+
+                    Label:
+                        text: "Visi: Meningkatkan kesejahteraan masyarakat melalui program pembangunan desa.\n"
+                        font_size: '12sp'
+                        font_name: 'assets/font/Montserrat-Regular.otf'
+                        halign: 'left'
+                        valign: 'top'
+                        text_size: self.width, None
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+                    Label:
+                        text: "Misi: Meningkatkan infrastruktur desa, memperkuat perekonomian, dan memberdayakan masyarakat."
+                        font_size: '12sp'
+                        font_name: 'assets/font/Montserrat-Regular.otf'
+                        halign: 'left'
+                        valign: 'top'
+                        text_size: self.width, None
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+        # Bottom Navigation Bar
+        MDBottomNavigation:
+            panel_color: "#EEEEEE"
+            text_color_active: "#888888"
+            text_color_normal: "#888888"
+            icon_color_active: "#888888"
+            icon_color_normal: "#888888"
+
+            MDBottomNavigationItem:
+                name: 'home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: app.root.current = 'admin_home'
+
+            MDBottomNavigationItem:
+                name: 'pesan'
+                text: 'Pesan'
+                icon: 'message'
+                on_tab_press: app.root.current = 'admin_pesan'
+
+            MDBottomNavigationItem:
+                name: 'pengaduan'
+                text: 'Pengaduan'
+                icon: 'alert-circle-outline'
+                on_tab_press: app.root.current = 'admin_pengaduan'
+
+            MDBottomNavigationItem:
+                name: 'profil'
+                text: 'Profil'
+                icon: 'account'
+                on_tab_press: app.root.current = 'admin_profil'

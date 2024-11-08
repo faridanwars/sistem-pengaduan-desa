@@ -1,0 +1,136 @@
+#:kivy 2.3.0
+<AdminProfilScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Using FloatLayout to position the icon in the center
+        FloatLayout:
+            size_hint_y: None
+            height: dp(150)  # Adjusted height to allow more space
+
+            Image:
+                id: profile_image
+                source: 'assets/image/profile.png'  # Change to your profile icon path
+                size_hint: None, None
+                size: dp(80), dp(80)  # Set icon size as needed
+                pos_hint: {'center_x': 0.5, 'center_y': 0.6}  # Center position
+
+            MDIconButton:
+                icon: 'camera'
+                size_hint: None, None
+                size: dp(30), dp(30)  # Ukuran ikon
+                pos_hint: {'center_x': 0.5, 'center_y': 0.3}  # Posisikan di bawah gambar
+                on_release: root.open_file_chooser()
+
+        # Spacer between image and TextFields
+        Widget:
+            size_hint_y: None
+            height: dp(180)  # Increased spacing to 20dp
+
+        # Text Fields below the icon
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: dp(10)
+            padding: dp(10)
+
+            MDTextField:
+                id: username_field
+                hint_text: "Username"
+                mode: "rectangle"
+                size_hint_y: None
+                height: dp(40)
+                readonly: True
+
+            MDTextField:
+                id: nik_field
+                hint_text: "NIK"
+                mode: "rectangle"
+                size_hint_y: None
+                height: dp(40)
+                # readonly: True
+
+            MDTextField:
+                id: alamat_field
+                hint_text: "Alamat"
+                mode: "rectangle"
+                size_hint_y: None
+                height: dp(40)
+
+            MDTextField:
+                id: password_field
+                hint_text: "Password"
+                mode: "rectangle"
+                size_hint_y: None
+                height: dp(40)
+                password: True  # Marking field as password
+
+            # Spacer before button layout
+            Widget:
+                size_hint_y: None
+                height: dp(10)
+
+            # Button Layout for 'Ubah' and 'Logout'
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(20)
+                size_hint_y: None
+                height: dp(60)
+                padding: 30
+
+                # 'Ubah' Button
+                MDRectangleFlatButton:
+                    text: "Ubah"
+                    size_hint_x: 0.5  # Set size hint for width
+                    md_bg_color: app.theme_cls.primary_color
+                    text_color: 1, 1, 1, 1
+
+                    on_press:
+                        self.md_bg_color = app.theme_cls.accent_color  # Mengubah warna saat ditekan
+                    on_release:
+                        self.md_bg_color = app.theme_cls.primary_color  # Kembali ke warna asli saat dilepas
+                        root.update_profile()  # Memanggil fungsi untuk memperbarui profil
+
+                # 'Logout' Button
+                MDRectangleFlatButton:
+                    text: "Logout"
+                    size_hint_x: 0.5  # Set size hint for width
+                    md_bg_color: app.theme_cls.primary_color
+                    text_color: 1, 1, 1, 1
+
+                    on_press:
+                        self.md_bg_color = app.theme_cls.accent_color
+                    on_release:
+                        self.md_bg_color = app.theme_cls.primary_color
+                        app.root.current = 'login'  # Arahkan ke halaman login
+
+        # Bottom Navigation Bar
+        MDBottomNavigation:
+            panel_color: "#EEEEEE"
+            text_color_active: "#888888"
+            text_color_normal: "#888888"
+            icon_color_active: "#888888"
+            icon_color_normal: "#888888"
+
+            MDBottomNavigationItem:
+                name: 'home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: app.root.current = 'admin_home'
+
+            MDBottomNavigationItem:
+                name: 'pesan'
+                text: 'Pesan'
+                icon: 'message'
+                on_tab_press: app.root.current = 'admin_pesan'
+
+            MDBottomNavigationItem:
+                name: 'pengaduan'
+                text: 'Pengaduan'
+                icon: 'alert-circle-outline'
+                on_tab_press: app.root.current = 'admin_pengaduan'
+
+            MDBottomNavigationItem:
+                name: 'profil'
+                text: 'Profil'
+                icon: 'account'
+                on_tab_press: app.root.current = 'admin_profil'

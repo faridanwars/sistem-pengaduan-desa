@@ -1,0 +1,34 @@
+#:kivy 2.3.0
+#:kivy 2.3.0
+<DaftarUserScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+
+        # Bar atas untuk tombol kembali dan judul
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(50)  # Menentukan tinggi untuk bar atas
+
+            MDIconButton:
+                icon: "arrow-left"  # Ikon untuk tombol kembali
+                size_hint: (None, None)
+                size: (40, 40)
+                on_release: app.root.current = 'admin_home'  # Mengubah ke halaman home
+
+            Label:
+                text: "Daftar Pengguna"
+                font_size: '24sp'
+                bold: True
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1]
+
+        # Tempat untuk menampilkan daftar pengguna
+        ScrollView:
+            MDList:
+                id: user_list  # ID untuk mengisi daftar pengguna
+                padding: dp(10)  # Menambahkan padding di dalam MDList
+                spacing: dp(10)   # Menambahkan spacing di antara item daftar

@@ -1,0 +1,167 @@
+#:kivy 2.3.0
+
+<PesanScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Kotak header
+        BoxLayout:
+            size_hint: (1, .6)
+            padding: [80, 0, 0, 35]  # Only padding at the bottom
+            orientation: 'horizontal'
+            canvas.before:
+                Color:
+                    rgba: 0.0, 0.5, 0.5, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [0, 0, 30, 30]
+
+            # Memusatkan teks di dalam BoxLayout
+            BoxLayout:
+                size_hint: None, None
+                width: self.minimum_width
+                height: self.minimum_height
+                pos_hint: {"center_x": 0.5}  # Memposisikan di tengah secara horizontal
+                orientation: 'horizontal'
+                spacing: 40  # Menambahkan spasi antara label
+
+                # Teks "All"
+                Label:
+                    text: "All"
+                    font_size: '18sp'
+                    font_name: 'assets/font/Montserrat-Regular.otf'
+                    bold: True
+                    halign: 'center'
+                    valign: 'middle'
+                    size_hint: None, None
+                    size: self.texture_size
+
+                # Teks "Unread"
+                Label:
+                    text: "Unread"
+                    font_size: '18sp'
+                    font_name: 'assets/font/Montserrat-Regular.otf'
+                    bold: True
+                    halign: 'center'
+                    valign: 'middle'
+                    size_hint: None, None
+                    size: self.texture_size
+
+                # Teks "Read"
+                Label:
+                    text: "Read"
+                    font_size: '18sp'
+                    font_name: 'assets/font/Montserrat-Regular.otf'
+                    bold: True
+                    halign: 'center'
+                    valign: 'middle'
+                    size_hint: None, None
+                    size: self.texture_size
+
+        # Jarak antara header dan daftar pesan
+        Widget:
+            size_hint_y: None
+            height: dp(20)  # Jarak 20 antara header dan daftar pesan
+
+        # ScrollView untuk daftar pesan di bawah header
+        ScrollView:
+            size_hint: 1, None
+            size: 350, 380
+            BoxLayout:
+                orientation: 'vertical'
+                padding: [10, 10]
+                spacing: 10
+                size_hint_y: None
+                height: self.minimum_height
+
+                # Pesan 1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    spacing: 10
+                    size_hint_y: None
+                    height: dp(80)
+
+                    # Avatar placeholder
+                    BoxLayout:
+                        size_hint_x: None
+                        width: dp(60)
+                        canvas.before:
+                            Color:
+                                rgba: 0.9, 0.9, 0.9, 1  # Warna latar belakang avatar
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [10]
+
+                    # Detail pesan
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding: [20, 0]  # Menambahkan padding kiri untuk detail pesan
+
+                        Label:
+                            text: "Admin"
+                            font_size: '16sp'
+                            font_name: 'assets/font/Montserrat-Bold.otf'
+                            halign: 'left'
+
+                        # Scrollable Label
+                        ScrollView:
+                            size_hint_y: None
+                            height: dp(30)  # Atur tinggi sesuai kebutuhan
+                            do_scroll_x: True  # Mengizinkan scroll horizontal
+
+                            Label:
+                                text: "Pengaduan anda sedang diproses"
+                                font_size: '14sp'
+                                font_name: 'assets/font/Montserrat-Regular.otf'
+                                size_hint_x: None  # Mengizinkan ukuran lebar dinamis
+                                width: self.texture_size[0]  # Atur lebar sesuai ukuran teks
+                                halign: 'left'
+                                valign: 'middle'
+
+                    Label:
+                        text: "3:40 PM"
+                        font_size: '12sp'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+
+        # Icon tambah untuk mengirim pesan
+        MDIconButton:
+            icon: 'plus'
+            size_hint: None, None
+            size: dp(50), dp(50)
+            pos_hint: {"right": 1, "bottom": 1}  # Posisikan di pojok kanan bawah
+            on_release: app.root.current = 'detail_pesan'  # Ganti dengan nama screen DetailPesan
+
+        # Bottom Navigation Bar
+        MDBottomNavigation:
+            panel_color: "#EEEEEE"
+            text_color_active: "#888888"
+            text_color_normal: "#888888"
+            icon_color_active: "#888888"
+            icon_color_normal: "#888888"
+
+            MDBottomNavigationItem:
+                name: 'home'
+                text: 'Home'
+                icon: 'home'
+                on_tab_press: app.root.current = 'users_home'
+
+            MDBottomNavigationItem:
+                name: 'pesan'
+                text: 'Pesan'
+                icon: 'message'
+                on_tab_press: app.root.current = 'pesan'
+
+            MDBottomNavigationItem:
+                name: 'pengaduan'
+                text: 'Pengaduan'
+                icon: 'alert-circle-outline'
+                on_tab_press: app.root.current = 'pengaduan'
+
+            MDBottomNavigationItem:
+                name: 'profil'
+                text: 'Profil'
+                icon: 'account'
+                on_tab_press: app.root.current = 'profil'
