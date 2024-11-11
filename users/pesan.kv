@@ -69,70 +69,12 @@
             size_hint: 1, None
             size: 350, 380
             BoxLayout:
+                id: notifikasi_list  # ID untuk daftar notifikasi
                 orientation: 'vertical'
                 padding: [10, 10]
                 spacing: 10
                 size_hint_y: None
                 height: self.minimum_height
-
-                # Pesan 1
-                BoxLayout:
-                    orientation: 'horizontal'
-                    spacing: 10
-                    size_hint_y: None
-                    height: dp(80)
-
-                    # Avatar placeholder
-                    BoxLayout:
-                        size_hint_x: None
-                        width: dp(60)
-                        canvas.before:
-                            Color:
-                                rgba: 0.9, 0.9, 0.9, 1  # Warna latar belakang avatar
-                            RoundedRectangle:
-                                pos: self.pos
-                                size: self.size
-                                radius: [10]
-
-                    # Detail pesan
-                    BoxLayout:
-                        orientation: 'vertical'
-                        padding: [20, 0]  # Menambahkan padding kiri untuk detail pesan
-
-                        Label:
-                            text: "Admin"
-                            font_size: '16sp'
-                            font_name: 'assets/font/Montserrat-Bold.otf'
-                            halign: 'left'
-
-                        # Scrollable Label
-                        ScrollView:
-                            size_hint_y: None
-                            height: dp(30)  # Atur tinggi sesuai kebutuhan
-                            do_scroll_x: True  # Mengizinkan scroll horizontal
-
-                            Label:
-                                text: "Pengaduan anda sedang diproses"
-                                font_size: '14sp'
-                                font_name: 'assets/font/Montserrat-Regular.otf'
-                                size_hint_x: None  # Mengizinkan ukuran lebar dinamis
-                                width: self.texture_size[0]  # Atur lebar sesuai ukuran teks
-                                halign: 'left'
-                                valign: 'middle'
-
-                    Label:
-                        text: "3:40 PM"
-                        font_size: '12sp'
-                        size_hint_y: None
-                        height: self.texture_size[1]
-
-        # Icon tambah untuk mengirim pesan
-        MDIconButton:
-            icon: 'plus'
-            size_hint: None, None
-            size: dp(50), dp(50)
-            pos_hint: {"right": 1, "bottom": 1}  # Posisikan di pojok kanan bawah
-            on_release: app.root.current = 'detail_pesan'  # Ganti dengan nama screen DetailPesan
 
         # Bottom Navigation Bar
         MDBottomNavigation:

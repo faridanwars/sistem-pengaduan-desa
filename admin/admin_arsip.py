@@ -18,7 +18,9 @@ from reportlab.lib.pagesizes import letter
 from kivy.uix.boxlayout import BoxLayout
 from datetime import datetime
 from kivymd.uix.list import OneLineListItem 
+from reportlab.pdfgen import canvas
 import os
+import re
 
 class AdminArsipScreen(Screen):
     def on_enter(self):
@@ -134,12 +136,14 @@ class AdminArsipScreen(Screen):
         )
         dialog.open()
 
-
-
-
     def cetak_pdf(self, pengaduan, user_id):
-    # Menentukan nama file PDF
-        pdf_file_name = f"{pengaduan['judul']}_{user_id}.pdf"
+    # Menentukan nama file PDF berdasarkan judul pengaduan
+        judul_file = pengaduan['judul']
+        
+        # Sanitasi judul file untuk menghindari karakter tidak valid
+        judul_file = re.sub(r'[<>:"/\\|?*]', '_', judul_file)  # Mengganti karakter tidak valid dengan '_'
+        judul_file = judul_file.replace('\t', '_')  # Mengganti tab dengan '_'
+        pdf_file_name = f"{judul_file}_{user_id}.pdf"  # Nama file berdasarkan judul pengaduan
         pdf_folder = "admin/arsip"  # Folder tempat menyimpan PDF
         pdf_file_path = os.path.join(pdf_folder, pdf_file_name)  # Menggabungkan folder dan nama file
 
@@ -147,9 +151,6 @@ class AdminArsipScreen(Screen):
         os.makedirs(pdf_folder, exist_ok=True)  # Membuat folder jika belum ada
 
         # Membuat PDF menggunakan reportlab
-        from reportlab.lib.pagesizes import letter
-        from reportlab.pdfgen import canvas
-
         c = canvas.Canvas(pdf_file_path, pagesize=letter)
         width, height = letter
 
@@ -216,5 +217,7 @@ class AdminArsipScreen(Screen):
         c.save()
         print(f"PDF telah disimpan sebagai {pdf_file_path}")  # Menampilkan jalur lengkap
 
-        # Tampilkan dialog konfirmasi
-        self.show_dialog("PDF berhasil dicetak!")
+        # Tampilkan dialog konfirmasi dengan argumen yang diperlukan
+        pengaduan_id = pengaduan.get('id', 'N/A')  # Ambil ID pengaduan, ganti dengan cara Anda mendapatkan ID yang benar
+        judul = pengaduan.get('judul', 'N/A')  # Ambil judul pengaduan
+        self.show_dialog("PDF berhasil dicetak!", user_id, pengaduan_id, judul)

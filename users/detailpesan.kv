@@ -14,19 +14,56 @@
                 icon: 'chevron-left'
                 on_release: app.root.current = 'pesan'
 
-            MDBoxLayout:
+            BoxLayout:
                 orientation: 'vertical'
+                spacing: dp(5)
                 MDLabel:
                     text: "Admin"
                     font_style: "Subtitle1"
                     size_hint_y: None
                     height: self.texture_size[1]
+                    halign: "left"  # Align text to the left
+                    font_name: 'assets/font/Montserrat-Regular.otf'  # Custom font
 
                 MDLabel:
                     text: "Sistem Pengaduan Desa"
                     font_style: "Caption"
                     size_hint_y: None
                     height: self.texture_size[1]
+                    halign: "left"  # Align text to the left
+                    font_name: 'assets/font/Montserrat-Regular.otf'  # Custom font
+
+        # Spacer to create more vertical space
+        Widget:
+            size_hint_y: None
+            height: dp(20)  # Adjust the height as needed for spacing
+
+        # Notifikasi Judul dan Waktu
+        BoxLayout:
+            orientation: 'vertical'
+            padding: dp(15)
+            spacing: dp(10)  # Added spacing between elements
+            size_hint_y: None
+            height: dp(100)
+
+            MDLabel:
+                id: notif_title
+                text: "Pesan tidak tersedia"
+                font_style: "Subtitle1"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "left"  # Align text to the left
+                font_name: 'assets/font/Montserrat-Regular.otf'  # Custom font
+
+            MDLabel:
+                id: notif_time
+                text: "Waktu tidak tersedia"
+                font_style: "Caption"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"  # Center-align text
+                pos_hint: {"center_x": 0.5}  # Center horizontally
+                font_name: 'assets/font/Montserrat-Regular.otf'  # Custom font
 
         # Chat messages
         ScrollView:
@@ -37,20 +74,3 @@
                 spacing: dp(10)
                 size_hint_y: None
                 height: self.minimum_height
-
-        # Input Field
-        MDBoxLayout:
-            padding: dp(10)
-            size_hint_y: None
-            height: dp(50)
-            spacing: dp(10)
-
-            MDTextFieldRect:
-                id: message_input
-                hint_text: "Type your message..."
-                size_hint_x: 0.9
-                multiline: False
-
-            MDIconButton:
-                icon: 'send'
-                on_release: root.send_message()  # Perubahan di sini

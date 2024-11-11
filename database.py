@@ -136,6 +136,9 @@ class Database:
             pengaduan = Database.db.child("pengaduan").child(user_id).get()
             print(f"Data pengaduan untuk user {user_id} dari Firebase:", pengaduan.val())  # Tambahkan log ini
             if pengaduan.val() is not None:
+                # Debugging untuk melihat setiap pengaduan
+                for item in pengaduan.each():
+                    print(f"Pengaduan ID: {item.key()}, Data: {item.val()}")  # Cetak ID dan data pengaduan
                 return [(item.key(), item.val()) for item in pengaduan.each()]  # Mengembalikan list of tuples (id, data)
             return []  
         except Exception as e:
@@ -268,7 +271,7 @@ class Database:
         except Exception as e:
             print(f"Error menambahkan notifikasi untuk pengaduan {pengaduan_id}: {e}")
             raise e
-
+    
     @staticmethod
     def get_notifications(user_id, pengaduan_id):
         """
@@ -281,4 +284,34 @@ class Database:
             return []  
         except Exception as e:
             print(f"Error mendapatkan notifikasi untuk pengaduan {pengaduan_id}: {e}")
+            return []
+
+    @staticmethod
+    def get_single_notification(user_id, pengaduan_id, notif_id):
+        """
+        Mengambil satu notifikasi berdasarkan ID untuk pengaduan tertentu.
+        """
+        try:
+            # Retrieve the notification by its ID
+            notification = Database.db.child("pengaduan").child(user_id).child(pengaduan_id).child("notifikasi").child(notif_id).get()
+            
+            # If the notification exists, return it
+            if notification.val() is not None:
+                return notification.val()
+            
+            # If not found, return None
+            return None
+        except Exception as e:
+            print(f"Error mendapatkan notifikasi {notif_id} untuk pengaduan {pengaduan_id}: {e}")
+            return None
+        
+    @staticmethod
+    def get_user_pengaduan(user_id):
+        """
+        Mengambil semua pengaduan untuk pengguna tertentu berdasarkan user_id.
+        """
+        try:
+            return Database.get_pengaduan(user_id)
+        except Exception as e:
+            print(f"Error mendapatkan pengaduan untuk pengguna {user_id}: {e}")
             return []
