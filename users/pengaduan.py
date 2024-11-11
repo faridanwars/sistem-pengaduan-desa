@@ -25,6 +25,11 @@ class PengaduanScreen(Screen):
     user_id = ""  # Menyimpan user_id pengguna saat ini
     pengaduan_data = []  # List untuk menyimpan data pengaduan
 
+    def on_enter(self):
+        app = MDApp.get_running_app()
+        username = app.get_current_user_id()  # Ambil username dari aplikasi
+        self.ids['greeting_label'].text = f"Halo {username}"  # Update label
+
     def add_pengaduan(self, pengaduan):
         self.pengaduan_data.append(pengaduan)
 

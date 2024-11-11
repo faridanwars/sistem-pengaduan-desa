@@ -38,7 +38,6 @@ from users.pengaduan import PengaduanScreen
 from users.masukan import MasukanScreen
 from users.status import StatusScreen
 from users.profil import ProfilScreen
-from users.riwayat import RiwayatScreen
 
 # Load .kv files
 Builder.load_file('login.kv')
@@ -48,7 +47,6 @@ Builder.load_file('users/pengaduan.kv')
 Builder.load_file('users/profil.kv')
 Builder.load_file('users/masukan.kv')
 Builder.load_file('users/status.kv')
-Builder.load_file('users/riwayat.kv')
 Builder.load_file('users/detailpesan.kv')
 Builder.load_file('admin/admin_home.kv')
 Builder.load_file('admin/admin_profil.kv')
@@ -110,7 +108,6 @@ class MainApp(MDApp):
         sm.add_widget(ProfilScreen(name='profil'))
         sm.add_widget(MasukanScreen(name='masukan'))
         sm.add_widget(StatusScreen(name='status'))
-        sm.add_widget(RiwayatScreen(name='riwayat'))
         sm.add_widget(DetailPesanScreen(name='detailpesan'))
 
         return sm
