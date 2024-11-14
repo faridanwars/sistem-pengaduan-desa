@@ -19,6 +19,7 @@ from reportlab.pdfgen import canvas
 from kivy.uix.popup import Popup
 import os
 from datetime import datetime
+
 # admin
 from login import LoginScreen, CreateAccountScreen
 from admin.admin_home import AdminHomeScreen
@@ -32,12 +33,11 @@ from admin.daftar_user import DaftarUserScreen
 
 from users.home import HomeScreen
 from users.pesan import PesanScreen
-from users.pesan import DetailPesanScreen
+from users.detailpesan import DetailPesanScreen
 from users.pengaduan import PengaduanScreen
 from users.masukan import MasukanScreen
 from users.status import StatusScreen
 from users.profil import ProfilScreen
-from users.riwayat import RiwayatScreen
 
 # Load .kv files
 Builder.load_file('login.kv')
@@ -47,7 +47,6 @@ Builder.load_file('users/pengaduan.kv')
 Builder.load_file('users/profil.kv')
 Builder.load_file('users/masukan.kv')
 Builder.load_file('users/status.kv')
-Builder.load_file('users/riwayat.kv')
 Builder.load_file('users/detailpesan.kv')
 Builder.load_file('admin/admin_home.kv')
 Builder.load_file('admin/admin_profil.kv')
@@ -82,13 +81,13 @@ class MainApp(MDApp):
         self.current_user_id = username
 
     def get_current_user_id(self):
-        return self.current_user_id  # Tambahkan metode ini
+        return self.current_user_id
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Blue"
 
-        sm = CustomScreenManager()  # Ganti ScreenManager dengan CustomScreenManager
+        sm = CustomScreenManager()
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(CreateAccountScreen(name='create_account'))
 
@@ -98,9 +97,9 @@ class MainApp(MDApp):
         sm.add_widget(AdminDetailPesanScreen(name='admin_detail_pesan'))
         sm.add_widget(AdminProfilScreen(name='admin_profil'))
         sm.add_widget(AdminPengaduanScreen(name='admin_pengaduan'))
-        sm.add_widget(AdminDaftarScreen(name='admin_daftar'))  # Tambahkan AdminDaftarScreen
-        sm.add_widget(AdminArsipScreen(name='admin_arsip'))  # Tambahkan AdminDaftarScreen
-        sm.add_widget(DaftarUserScreen(name='daftar_user'))  # Tambahkan DaftarUserScreen
+        sm.add_widget(AdminDaftarScreen(name='admin_daftar'))
+        sm.add_widget(AdminArsipScreen(name='admin_arsip'))
+        sm.add_widget(DaftarUserScreen(name='daftar_user'))
 
         # User screens
         sm.add_widget(HomeScreen(name='users_home'))
@@ -109,8 +108,7 @@ class MainApp(MDApp):
         sm.add_widget(ProfilScreen(name='profil'))
         sm.add_widget(MasukanScreen(name='masukan'))
         sm.add_widget(StatusScreen(name='status'))
-        sm.add_widget(RiwayatScreen(name='riwayat'))
-        sm.add_widget(DetailPesanScreen(name='detail_pesan'))
+        sm.add_widget(DetailPesanScreen(name='detailpesan'))
 
         return sm
 

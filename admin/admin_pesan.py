@@ -1,13 +1,16 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
+from kivy.uix.scrollview import ScrollView
 from kivy.uix.image import Image
 from kivy.metrics import dp
-from kivy.uix.button import Button
-from kivymd.uix.button import MDFlatButton
-from database import Database
 from datetime import datetime
-from kivymd.uix.dialog import MDDialog
+from kivy.core.text import LabelBase
+
+from database import Database
+
+# Daftarkan font kustom Montserrat
+LabelBase.register(name='Montserrat', fn_regular='assets/font/Montserrat-Regular.otf')
 
 class AdminPesanScreen(Screen):
     def on_enter(self):
@@ -27,11 +30,11 @@ class AdminPesanScreen(Screen):
     def add_notifikasi_widget(self, judul_pengaduan, notif):
         if isinstance(notif, dict):
             # Buat BoxLayout untuk menampung informasi notifikasi
-            item_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(80), padding=dp(10))
+            item_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height=dp(80), padding=[dp(10), dp(5)], spacing=dp(10))
 
             # Avatar atau ikon
             avatar = Image(
-                source='path/to/avatar/icon.png',  # Ganti dengan path ke ikon avatar yang sesuai
+                source='assets/image/profile.png',  # Ganti dengan path ke ikon avatar yang sesuai
                 size_hint_x=None,
                 width=dp(50),
             )
@@ -39,21 +42,25 @@ class AdminPesanScreen(Screen):
             # Label untuk judul pengaduan
             message_label = Label(
                 text=judul_pengaduan,  # Menampilkan judul pengaduan
-                size_hint=(0.6, 1),  # Memberikan ruang yang lebih besar untuk judul
+                size_hint=(0.7, 1),  # Memberikan ruang yang lebih besar untuk judul
                 halign='left',
-                valign='middle'
+                valign='middle',
+                text_size=(self.width * 0.7, None),  # Atur lebar teks
+                font_name='Montserrat'  # Menggunakan font Montserrat
             )
+            message_label.bind(size=message_label.setter('text_size'))
 
             # Label untuk waktu
             time_label = Label(
                 text=self.format_time(notif['timestamp']),  # Mengambil timestamp dari notifikasi
                 size_hint=(0.3, 1),  # Memberikan ruang untuk waktu
                 halign='right',
-                valign='middle'
+                valign='middle',
+                font_name='Montserrat'  # Menggunakan font Montserrat
             )
 
-            # Menambahkan fungsi untuk menampilkan detail notifikasi saat judul ditekan
-            message_label.bind(on_touch_down=lambda instance, touch: self.show_notification_detail(notif) if instance.collide_point(*touch.pos) else False)
+            # Menambahkan fungsi untuk berpindah ke detail pesan saat judul ditekan
+            message_label.bind(on_touch_down=lambda instance, touch: self.go_to_detail(notif) if instance.collide_point(*touch.pos) else False)
 
             item_layout.add_widget(avatar)  # Tambahkan avatar ke BoxLayout
             item_layout.add_widget(message_label)  # Tambahkan judul ke BoxLayout
@@ -66,37 +73,8 @@ class AdminPesanScreen(Screen):
         time_format = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
         return time_format.strftime("%I:%M %p")  # Format waktu, misalnya "03:40 PM"
 
-    def show_notification_detail(self, notif):
-        # Membuat label untuk menampilkan detail notifikasi
-        detail_label = Label(
-            text=f"Pesan: {notif['pesan']}",  # Hanya menampilkan pesan
-            halign='left',
-            valign='middle',
-            size_hint_x=1,  # Mengatur lebar label agar sesuai dengan dialog
-            size_hint_y=None,
-            height=self.get_label_height(notif['pesan']),  # Mengatur tinggi label berdasarkan isi pesan
-        )
-
-        # Membuat dialog
-        close_button = MDFlatButton(text="Tutup", on_release=lambda x: dialog.dismiss())
-
-        # Membuat dialog
-        dialog = MDDialog(
-            title='Detail Notifikasi',
-            type='custom',
-            content_cls=BoxLayout(orientation='vertical', padding=dp(10), spacing=dp(10)),
-            buttons=[close_button]
-        )
-
-        # Menambahkan label ke dalam dialog
-        dialog.content_cls.add_widget(detail_label)
-
-        # Menampilkan dialog
-        dialog.open()
-
-    def get_label_height(self, text):
-        # Menghitung tinggi label berdasarkan isi teks
-        label = Label(text=text, size_hint_x=None, width=self.width * 0.75)  # Membuat label sementara untuk menghitung tinggi
-        label.bind(size=label.setter('size'))  # Mengikat ukuran label
-        label.texture_update()  # Memperbarui tekstur untuk mendapatkan ukuran yang benar
-        return label.height + dp(20)  # Menambahkan padding
+    def go_to_detail(self, notif):
+        # Pindah ke halaman detail dan passing notifikasi
+        self.manager.current = 'admin_detail_pesan'
+        detail_screen = self.manager.get_screen('admin_detail_pesan')
+        detail_screen.set_notif(notif)  # Mengirimkan notifikasi ke halaman detail
